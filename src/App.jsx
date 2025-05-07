@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { ChatbotIcon } from "./components/ChatbotIcon";
+import { ChatForm } from "./components/ChatForm";
+import { ChatMessage } from "./components/ChatMessage";
 
 export const App = () => {
+  const [chatHistory, setChatHistory] = useState([]);
+
+  const generateBotResponse = (history) => {
+    console.log(history);
+  }
+
   return (
     <div className="container">
       <div className="chatbot-popup">
@@ -11,7 +19,9 @@ export const App = () => {
             <ChatbotIcon />
             <h2 className="logo-text">Chatbot</h2>
           </div>
-          <button className="material-symbols-outlined">keyboard_arrow_down</button>
+          <button className="material-symbols-outlined">
+            keyboard_arrow_down
+          </button>
         </div>
 
         {/* Chatbot Body */}
@@ -23,23 +33,14 @@ export const App = () => {
             </p>
           </div>
 
-          <div className="message user-message">
-            <p className="message-text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </p>
-          </div>
+          {/* Renderiza o histórico da conversa dinamicamente */}
+          {chatHistory.map((chat, index) => (
+            <ChatMessage key={index} chat={chat} />
+          ))}
 
           {/* Chatbot Footer */}
           <div className="chat-footer">
-            <form action="#" className="chat-form">
-              <input
-                type="text"
-                placeholder="Message..."
-                className="message-input"
-                required
-              />
-              <button className="material-symbols-outlined">keyboard_arrow_up</button>
-            </form>
+            <ChatForm chatHistory={chatHistory} setChatHistory={setChatHistory} generateBotResponse={generateBotResponse} />
           </div>
         </div>
       </div>
