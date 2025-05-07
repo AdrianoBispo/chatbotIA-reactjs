@@ -11,9 +11,7 @@ export const App = () => {
             <ChatbotIcon />
             <h2 className="logo-text">Chatbot</h2>
           </div>
-          <button className="material-symbols-outlined">
-            keyboard_arrow_down
-          </button>
+          <button className="material-symbols-outlined">keyboard_arrow_down</button>
         </div>
 
         {/* Chatbot Body */}
@@ -37,12 +35,10 @@ export const App = () => {
               <input
                 type="text"
                 placeholder="Message..."
-                className="message-text"
+                className="message-input"
                 required
               />
-              <button class="material-symbols-outlined">
-                keyboard_arrow_up
-              </button>
+              <button className="material-symbols-outlined">keyboard_arrow_up</button>
             </form>
           </div>
         </div>
