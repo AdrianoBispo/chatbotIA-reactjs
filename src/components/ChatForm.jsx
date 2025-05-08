@@ -1,10 +1,6 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 
-export const ChatForm = ({
-  chatHistory,
-  setChatHistory,
-  generateBotResponse,
-}) => {
+export const ChatForm = ({ chatHistory, setChatHistory, generateBotResponse }) => {
   const inputRef = useRef();
 
   const handleFormSubmit = (e) => {
@@ -13,39 +9,41 @@ export const ChatForm = ({
     if (!userMessage) return;
     inputRef.current.value = "";
 
-    // Atualiza o histórico de conversa com a mensagem do usuário
     setChatHistory((history) => [
       ...history,
       { role: "user", text: userMessage },
     ]);
 
-    // O bot responde "Thinking", enquanto a IA não processou a mensagem, quando o usuário envia uma mensagem.
-    setTimeout(
-      () =>
-        setChatHistory((history) => [
-          ...history,
-          { role: "model", text: "Thinking..." },
-        ]),
+    setTimeout(() => {
+      setChatHistory((history) => [
+        ...history,
+        { role: "model", text: "Pensando..." },
+      ]);
 
-      // Chama a função que gera a resposta do bot
       generateBotResponse([
         ...chatHistory,
-        { role: "user", text: userMessage },
-      ]),
-      600
-    );
+        {
+          role: "user",
+          text: `Usando os detalhes fornecidos acima, responda a esta pergunta: ${userMessage}`,
+        },
+      ]);
+    }, 600);
   };
 
   return (
-    <form action="#" className="chat-form" onSubmit={handleFormSubmit}>
+    <form className="chat-form" onSubmit={handleFormSubmit}>
       <input
         ref={inputRef}
         type="text"
-        placeholder="Message..."
+        placeholder="Digite sua mensagem"
         className="message-input"
         required
       />
-      <button className="material-symbols-outlined">keyboard_arrow_up</button>
+      <button type="submit" className="material-symbols-rounded">
+        arrow_upward
+      </button>
     </form>
   );
 };
+
+export default ChatForm;

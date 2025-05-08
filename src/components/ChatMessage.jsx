@@ -1,11 +1,21 @@
-import React from "react";
-import { ChatbotIcon } from "./ChatbotIcon";
+import ChatbotIcon from "./ChatbotIcon";
+import ReactMarkdown from 'react-markdown';
 
 export const ChatMessage = ({ chat }) => {
   return (
-    <div className={`message ${chat.role === "model" ? "bot" : "user"}-message`}>
-      {chat.model === "model" && ChatbotIcon}
-      <p className="message-text">{chat.text}</p>
-    </div>
+    !chat.hideInChat && (
+      <div
+        className={`message ${chat.role === "model" ? "bot" : "user"}-message ${
+          chat.isError ? "error" : ""
+        }`}
+      >
+        {chat.role === "model" && <ChatbotIcon />}
+        <div className="message-text">
+        <ReactMarkdown>{chat.text}</ReactMarkdown>
+        </div>
+      </div>
+    )
   );
 };
+
+export default ChatMessage;
